@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="robots" content="noindex, nofollow">
+<title>Operación 6 meses contigo</title>
+<!-- Fuentes -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Quicksand:wght@400;500;700&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-main: #0b1220;
+      --bg-card: rgba(16, 24, 40, 0.92);
+      --blue: #5aa9ff;
+      --blue-soft: #9cc9ff;
+      --red: #ff5c7a;
+      --green: #73d9a7;
+      --text: #f5f7ff;
+      --text-soft: #d3dcf8;
+      --border: #2e4f86;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(90,169,255,0.15), transparent 35%),
+        radial-gradient(circle at bottom, rgba(255,92,122,0.10), transparent 30%),
+        linear-gradient(180deg, #08101d 0%, #0b1220 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+        radial-gradient(2px 2px at 120px 90px, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 220px 50px, #ffffff, transparent),
+        radial-gradient(2px 2px at 340px 120px, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 450px 70px, #ffffff, transparent),
+        radial-gradient(2px 2px at 600px 160px, #ffffff, transparent);
+      background-size: 700px 250px;
+      animation: moveStars 20s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(20px); }
+    }
+
+    .container {
+      width: min(1000px, 92%);
+      margin: 0 auto;
+      padding: 30px 0 60px;
+    }
+
+    .game-title {
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+      color: var(--blue-soft);
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(90,169,255,0.35);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-soft);
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+    }
+
+    .card {
+      display: none;
+      background: var(--bg-card);
+      border: 4px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 12px 30px var(--shadow);
+      animation: fadeIn 0.5s ease;
+      margin-bottom: 20px;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pixel-heading {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--red);
+      font-size: clamp(0.75rem, 1.8vw, 1rem);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .text {
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .soft {
+      color: var(--text-soft);
+    }
+
+    .highlight {
+      color: var(--blue-soft);
+      font-weight: bold;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .pixel-btn {
+      font-family: 'Press Start 2P', cursive;
+      border: none;
+      cursor: pointer;
+      background: var(--blue);
+      color: #06101d;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      line-height: 1.6;
+      box-shadow: 0 6px 0 #2f5f99;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pixel-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .pixel-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #2f5f99;
+    }
+
+    .pixel-btn.red {
+      background: var(--red);
+      box-shadow: 0 6px 0 #a73551;
+      color: white;
+    }
+
+    .pixel-btn.green {
+      background: var(--green);
+      box-shadow: 0 6px 0 #3e8a6b;
+      color: #06101d;
+    }
+
+    .question-box {
+      background: rgba(255,255,255,0.04);
+      border: 2px dashed var(--blue);
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 18px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .option-btn {
+      background: #15233b;
+      color: var(--text);
+      border: 2px solid #28426d;
+      border-radius: 10px;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+
+    .option-btn:hover {
+      border-color: var(--blue);
+      background: #1b2d49;
+    }
+
+    .result {
+      margin-top: 12px;
+      font-weight: bold;
+      color: var(--green);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid var(--red);
+      padding: 14px 16px;
+      border-radius: 10px;
+    }
+
+    .timeline-item h4 {
+      color: var(--blue-soft);
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .photo-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid #29456f;
+      border-radius: 14px;
+      overflow: hidden;
+      padding-bottom: 12px;
+    }
+
+    .photo-card img {
+      width:100%;
+  aspect-ratio:9/16;
+  object-fit:cover;
+  object-position:center;
+  background:#91a4c2;
+  display:block
+    }
+    .polaroid img{
+  width:100%;
+  aspect-ratio:9/16;
+  object-fit:cover;
+  object-position:center;
+  background:#91a4c2;
+  display:block
+}
+
+    .photo-card p {
+      padding: 12px 12px 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .qualities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .quality-box {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid #28426d;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .quality-box h4 {
+      color: var(--red);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .distance-box {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 2px dashed var(--green);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .letter {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 2px solid var(--red);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      line-height: 1.9;
+      color: #fdfdfd;
+    }
+
+    .signature {
+      margin-top: 18px;
+      color: var(--blue-soft);
+      font-weight: bold;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: #20314d;
+      border: 2px solid #395c8f;
+    }
+
+    .dot.active {
+      background: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 0 10px rgba(255, 92, 122, 0.45);
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 20px;
+      }
+
+      .text {
+        font-size: 1rem;
+      }
+
+      .pixel-btn {
+        width: 100%;
+      }
+    }
+  
+/* Restauración artística: sin alterar textos de Pedro */
+body{background:#081527;position:relative}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-3;pointer-events:none}
+.sky-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(3,11,26,.08),rgba(4,12,28,.32) 55%,rgba(2,9,21,.72))}
+.stars{display:none}
+.container{width:min(920px,92%);position:relative}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
+.brand{font:9px/1.8 'Press Start 2P',monospace;color:#f4d9a0}
+.music{background:rgba(9,22,46,.85);border:1px solid #86a8d1;color:#f4f0e8;padding:12px 15px;border-radius:8px;cursor:pointer;font:700 12px 'Quicksand',sans-serif}
+.music:hover{background:#18375a}
+.game-title{font-family:'DM Serif Display',serif;font-size:clamp(30px,6vw,59px);line-height:1.25;color:#fff0df;text-shadow:0 4px 28px #07142c}
+.subtitle{color:#d5dded}
+.card{border:2px solid rgba(170,199,229,.68);outline:1px solid rgba(244,217,160,.3);outline-offset:4px;border-radius:5px;background:rgba(8,20,41,.83);box-shadow:0 18px 70px #01071490;backdrop-filter:blur(10px);padding:clamp(22px,5vw,43px)}
+.pixel-heading{color:#f4d9a0}
+.highlight{color:#a9d2ff}
+.photo-card{background:#f0e8d9;border:9px solid #f0e8d9;border-bottom-width:18px;border-radius:3px;box-shadow:0 7px 19px #0005;overflow:hidden}
+.photo-card:nth-child(odd){transform:rotate(-1deg)}.photo-card:nth-child(even){transform:rotate(1deg)}
+.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.photo-card img{width:100%;aspect-ratio:9/16;object-fit:cover;object-position:center;display:block;background:#91a4c2}
+.photo-card p{color:#27324b;font:italic 16px/1.5 'DM Serif Display',serif;padding:14px 9px 4px;text-align:center}
+.letter{background:#eae1cd;color:#344058;border:7px solid #cfc0a0;border-radius:2px;box-shadow:inset 0 0 0 1px #aa9778,0 12px 25px #0004;padding:clamp(22px,5vw,40px)}
+.letter p{color:#344058;font:18px/1.85 'DM Serif Display',serif;margin-bottom:16px}
+.letter .signature{color:#2c598c;text-align:right}
+.quiz-extra{margin:22px 0}.quiz-extra .result{min-height:20px}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:12;overflow:hidden}.petal{position:absolute;top:-30px;animation:fall linear forwards;color:#f0a5bb}@keyframes fall{to{transform:translateY(110vh) rotate(480deg);opacity:0}}
+@media(max-width:600px){.gallery{grid-template-columns:1fr}.photo-card{max-width:420px;width:100%;margin:auto}.topbar{align-items:flex-start}.brand{font-size:8px}.music{font-size:11px;padding:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Sorpresa de Sarai: el pequeño hámster lleva el último mensaje */
+.hamster-surprise{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:8px;animation:hamster-appear .7s ease both}
+.hamster-surprise.hidden{display:none}
+.hamster-wrap{filter:drop-shadow(0 10px 15px #020d29);animation:hamster-bob 2.6s ease-in-out infinite}
+.hamster-pixels{display:block;width:165px;max-width:70vw;height:auto;image-rendering:pixelated;shape-rendering:crispEdges}
+.hamster-speech{width:min(100%,540px);position:relative;background:#f4ead9;border:4px solid #8ebbe8;box-shadow:6px 6px 0 #224d80;padding:22px 25px;text-align:center;color:#24304a}
+.hamster-speech:before{content:'';position:absolute;top:-15px;left:calc(50% - 10px);width:18px;height:18px;background:#f4ead9;border-left:4px solid #8ebbe8;border-top:4px solid #8ebbe8;transform:rotate(45deg)}
+.hamster-speech p,.scene .hamster-speech p{color:#283752;font-size:16px;line-height:1.65;margin:12px 0}
+.hamster-speech .hamster-message{font:italic 23px/1.45 'DM Serif Display',serif;color:#204f88}
+.hamster-speech small{font-weight:bold;color:#925063}.pixel-kicker{font:9px/1.7 'Press Start 2P',monospace;color:#a4516a}
+@keyframes hamster-appear{from{opacity:0;transform:translateY(18px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes hamster-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(prefers-reduced-motion:reduce){.hamster-wrap{animation:none}}
+</style>
+</head>
+<body><canvas aria-hidden="true" id="sky"></canvas><div class="sky-veil"></div><div aria-hidden="true" id="confetti"></div><audio id="soundtrack" loop="" preload="none" src="audio/nuestra-cancion.mp3"></audio>
+<div class="stars"></div>
+<div class="container"><div class="topbar"><span class="brand">P ♥ S · EDICIÓN 06</span><button class="music" id="musicBtn" type="button">♫ Activar música</button></div>
+<h1 class="game-title">OPERACIÓN 6 MESES CONTIGO</h1>
+<p class="subtitle">Una pequeña aventura pixel para Sarai, hecha por Pedro 💙</p>
+<div class="progress">
+<div class="dot active"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+<!-- Pantalla 1 -->
+<section class="card active" id="screen-1">
+<h2 class="pixel-heading">NIVEL 1: INICIO DE LA MISIÓN</h2>
+<p class="text">
+        Hola, <span class="highlight">Sarai</span>. Si estás leyendo esto, es porque se activó una misión importante.
+      </p>
+<p class="text">
+        Al parecer, alguien muy especial lleva <span class="highlight">6 meses</span> haciéndome más feliz, ocupando mis pensamientos
+        y volviendo todo mucho más bonito de lo normal.
+      </p>
+<p class="text soft">
+        Sospechosa principal: tú.
+      </p>
+<p class="text">
+        Así que preparé esta pequeña aventura para ti, con algunos recuerdos, unas cuantas cosas que siento y una sorpresa al final.
+      </p>
+<div class="btn-row">
+<button class="pixel-btn" onclick="nextScreen(2)">COMENZAR MISIÓN</button>
+</div>
+</section>
+<!-- Pantalla 2 -->
+<section class="card" id="screen-2">
+<h2 class="pixel-heading">NIVEL 2: CÓMO EMPEZÓ TODO</h2>
+<p class="text">
+        No empezamos como una historia dramática ni como una película rara de amor imposible.
+        Empezamos de una forma más real, más tranquila... y justo por eso me gusta tanto nuestra historia.
+      </p>
+<div class="question-box quiz-extra" id="originQuiz"><p class="text"><strong>Primera misión:</strong> ¿Dónde empezó nuestra historia?</p><div class="options"><button class="option-btn" data-origin="wrong" type="button">En una biblioteca, como en una novela</button><button class="option-btn" data-origin="correct" type="button">En la preparatoria, gracias a cierta verdura...</button><button class="option-btn" data-origin="wrong" type="button">En una película romántica</button></div><p aria-live="polite" class="result" id="originFeedback"></p></div><div class="timeline hidden" id="reveal-origin">
+<div class="timeline-item">
+<h4>Preparatoria</h4>
+<p>Nos conocimos gracias a... ¿Lechuga?. Al principio todo era más casual: conocidos... y al final, amigos.</p>
+</div>
+<div class="timeline-item">
+<h4>Después de graduarnos</h4>
+<p>Tú me empezaste a hablar. Yo, tonto tonto, no seguí mucho la conversación y ahí murió por un tiempo. (pedro tonto todo mal)</p>
+</div>
+<div class="timeline-item">
+<h4>Un dia...</h4>
+<p>Te felicité, volvimos a hablar y esta vez sí empezó algo más bonito entre nosotros.</p>
+</div>
+<div class="timeline-item">
+<h4>18 de abril</h4>
+<p>Después de tanto tiempo y tantas conversaciones, me arme de valor (no se como lo hice) y llego... el dia chan chan chan, y te pedi que fueras mi novia (¿o al reves? secreto nuestro linda)</p>
+</div>
+</div>
+<div class="question-box">
+<p class="text"><strong>Pregunta importante para seguir avanzando:</strong><br/>¿Qué fecha cambió oficialmente esta historia?</p>
+<div class="options">
+<button class="option-btn" onclick="checkAnswer(this, false)">1 de enero</button>
+<button class="option-btn" onclick="checkAnswer(this, true)">18 de abril</button>
+<button class="option-btn" onclick="checkAnswer(this, false)">18 de marzo</button>
+</div>
+<p class="result hidden" id="answerResult">¡Correcto! Sigue avanzando, amor 💙</p>
+</div>
+<div class="btn-row">
+<button class="pixel-btn green hidden" id="btnTo3" onclick="nextScreen(3)">SIGUIENTE NIVEL</button>
+</div>
+</section>
+<!-- Pantalla 3 -->
+<section class="card" id="screen-3">
+<h2 class="pixel-heading">NIVEL 3: GALERÍA DE RECUERDOS</h2>
+<p class="text">
+        Aquí van algunos momentos que quiero guardar contigo.
+      </p>
+<p class="text soft">
+        Aunque remarque estas todas las fotos tuyas me ponen feliz.
+      </p>
+<div class="question-box quiz-extra" id="photoQuiz"><p class="text"><strong>Antes de abrir este álbum...</strong> ¿Quién es el sospechoso principal de estar perdidamente enamorado?</p><div class="options"><button class="option-btn" data-photo="wrong" type="button">Un ponquecito de chocolate</button><button class="option-btn" data-photo="correct" type="button">El pequeño hámster, Pedro</button><button class="option-btn" data-photo="wrong" type="button">Luigi?</button></div><p aria-live="polite" class="result" id="photoFeedback"></p></div><div class="gallery hidden" id="reveal-photos">
+<div class="photo-card">
+<img alt="Arepas???" src="img/foto1.jpg"/>
+<p><strong>Arepas???:</strong> Uno de los mejores dias, estuvo muy chistoso, pero hey alimente a la familia en mi primer visita.</p>
+</div>
+<div class="photo-card">
+<img alt="Recuerdo 2" src="img/foto2.jpg"/>
+<p><strong>El mejor dia de mi vida:</strong> Como olvidar este dia, si fue el mas importante de todo esto, aun recuerdo mis sentimientos en todo el dia antes de decirtelo jajsja.</p>
+</div>
+<div class="photo-card">
+<img alt="Recuerdo 3" src="img/foto3.jpg"/>
+<p><strong>Ay que linda:</strong> De verdad que es de mis fotos favoritas no te pases es que se ve muy lindo, y tu te ves igual de hermosa como siempre.</p>
+</div>
+<div class="photo-card">
+<img alt="Recuerdo 4" src="img/foto4.jpg"/>
+<p><strong>Chistosa o Preciosa?:</strong> Aunque haya sido nuestro ultimo dia juntos, y me vieras como de "enserio?" es de los recuerdos que mas veo en mi mente todos los dias.</p>
+</div>
+</div>
+<div class="btn-row">
+<button class="pixel-btn" onclick="nextScreen(4)">SEGUIR EXPLORANDO</button>
+</div>
+</section>
+<!-- Pantalla 4 -->
+<section class="card" id="screen-4">
+<h2 class="pixel-heading">NIVEL 4: 6 COSAS QUE ME GUSTAN DE TI</h2>
+<p class="text">
+        Solo por seguir el tema de los 6 meses, hice una lista de seis cosas que me gustan de ti.
+      </p>
+<div class="qualities">
+<div class="quality-box">
+<h4>1. Tu manera de ser</h4>
+<p>Me gusta como eres de tranquila? elegante? chistosa? cariñosa? loquita? jajaja no eres algo que se pueda definir con una palabra y eso mismo justo eso amo y me encanta de ti.</p>
+</div>
+<div class="quality-box">
+<h4>2. Tu lado romántico</h4>
+<p>Ese gusto en libros, gusto artistico, y amor al cine, muchos lo tienen, pero la forma de hablar mi vida uf, nadie te supera en eso, podre darte todo el amor de mundo y sonrojarte pero tu con una sola palabra ya me tienes atontado, cuanta elegancia y significado en las palabras mi amor.</p>
+</div>
+<div class="quality-box">
+<h4>3. Cómo me haces sentir</h4>
+<p>Contigo me siento acompañado puedo confiar en ti en todo momento, tal vez no todos los dias me demuestres tu amor pero se que si llego te abrazo de la cintura y me acerco mucho mucho, eres incapaz de no darme un beso, y el saber eso significa mucho mas, me siento amado linda como lo haces?.</p>
+</div>
+<div class="quality-box">
+<h4>4. Tus detalles</h4>
+<p>Lo que me das es tan aaaahhh es que es increible las coditas que haces por mi aunque parezcan sencillas o creas eso, me derriten por completo, ahorita mismo y todos los dias sigo enamoradisimo de tu regalo a mi en nuestro primer mes.</p>
+</div>
+<div class="quality-box">
+<h4>5. Nuestra historia</h4>
+<p>Me encanta que lo nuestro no se sintio nada forzado, todo fue poco a poco creciendo tan espacial, y a la vez tan bonito, dificil de explicar con palabras, nos cruzamos una vez y no paso mucho, nos cruzamos de nuevo y fue increible.</p>
+</div>
+<div class="quality-box">
+<h4>6. Que seas tú</h4>
+<p>Y sí, suena simple, pero de verdad me gusta mucho que seas tú mi amor. No cambiaría eso por nada en este mundo.</p>
+</div>
+</div>
+<div class="btn-row">
+<button class="pixel-btn red" onclick="nextScreen(5)">IR AL NIVEL 5</button>
+</div>
+</section>
+<!-- Pantalla 5 -->
+<section class="card" id="screen-5">
+<h2 class="pixel-heading">NIVEL 5: LA DISTANCIA NO PUEDE CON NOSOTROS</h2>
+<p class="text">
+        Ahorita puede que no estemos, y claro que a veces se siente feo no poder verte cuando quisiera.
+      </p>
+<p class="text">
+        Pero también me doy cuenta de algo:
+        lo bonito de nosotros no depende solo de estar cerca físicamente, sino de todo lo que construimos, hablamos y sentimos.
+      </p>
+<div class="distance-box">
+<p class="text">
+          La distancia podrá poner kilómetros, pero no puede borrar:
+        </p>
+<ul style="margin-left: 20px; line-height: 1.9; color: #d3dcf8;">
+<li>lo que hemos vivido</li>
+<li>lo mucho mucho mucho que te quiero</li>
+<li>las ganas que tengo de seguir contigo</li>
+<li>lo especial que te has vuelto para mí</li>
+</ul>
+</div>
+<p class="text" style="margin-top: 18px;">
+        Y aunque a veces yo sea medio tonto o no siempre diga todo perfecto, quería hacerte esto para que supieras que
+        de verdad eres muy importante para mí.
+      </p>
+<div class="btn-row">
+<button class="pixel-btn" onclick="nextScreen(6)">ABRIR MENSAJE FINAL</button>
+</div>
+</section>
+<!-- Pantalla 6 -->
+<section class="card" id="screen-6">
+<h2 class="pixel-heading">NIVEL 6: CARTA FINAL</h2>
+<p class="text">
+        Felicidades, <span class="highlight">Sarai</span>. Completaste la misión 💙
+      </p>
+<div class="letter">
+<p>Hola, mi amor.</p>
+<p>
+          Hoy cumplimos 6 meses, y aunque suene como un número simple, para mí significa mucho.
+          Significa tiempo, momentos, conversaciones, recuerdos y una persona que se ha vuelto demasiado especial para mí.
+        </p>
+<p>
+          Me gusta mucho estar contigo, hablar contigo y compartir todo esto contigo.
+          Me gusta nuestra historia porque no empezó de forma perfecta ni planeada,
+          pero justamente por eso se siente real, bonita y muy nuestra.
+        </p>
+<p>
+          Gracias por ser tú, por los momentos lindos, por tu cariño, por tu forma de ser
+          y por hacer que mi vida se sienta más bonita desde que estás en ella.
+        </p>
+<p>
+          Espero que este sea solo un pequeño capítulo de muchos más contigo.
+          Y aunque ahorita no estemos juntos, quiero seguir construyendo cosas bonitas a tu lado.
+        </p>
+<p>
+          Te quiero mucho mucho muchoooo, Sarai. Feliz 18 de octubre. Feliz 6 meses, amor. 💙
+        </p>
+<p class="signature">Con cariño, Pedro</p>
+</div>
+<div class="question-box" style="margin-top: 20px;">
+<p class="text">
+<strong>Sorpresa extra:</strong><br/>
+          Chan chan chan
+        </p>
+<p class="text soft">
+          Y como parte final de esta increible mision... No hay sorpresa pero no te me desanimes, talvez si me preguntas... a lo mejor y si haya algo?, porque no solo me dices cuanto me amas y que te parecio la aventura.
+        </p>
+</div>
+<div class="btn-row">
+<button class="pixel-btn red" onclick="showFinalMessage()">VER MENSAJE SECRETO</button>
+</div><div aria-live="polite" class="hamster-surprise hidden" id="hamsterSurprise"><div class="hamster-wrap"><svg aria-label="Un hámster de píxeles con mejillas rosadas" class="hamster-pixels" role="img" viewbox="0 0 200 190" xmlns="http://www.w3.org/2000/svg"><title>El pequeño hámster de Sarai</title><rect fill="#6b4a48" height="10" width="10" x="40" y="0"></rect><rect fill="#6b4a48" height="10" width="10" x="50" y="0"></rect><rect fill="#6b4a48" height="10" width="10" x="60" y="0"></rect><rect fill="#6b4a48" height="10" width="10" x="130" y="0"></rect><rect fill="#6b4a48" height="10" width="10" x="140" y="0"></rect><rect fill="#6b4a48" height="10" width="10" x="150" y="0"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="10"></rect><rect fill="#e99ca1" height="10" width="10" x="40" y="10"></rect><rect fill="#e99ca1" height="10" width="10" x="50" y="10"></rect><rect fill="#e99ca1" height="10" width="10" x="60" y="10"></rect><rect fill="#6b4a48" height="10" width="10" x="70" y="10"></rect><rect fill="#6b4a48" height="10" width="10" x="120" y="10"></rect><rect fill="#e99ca1" height="10" width="10" x="130" y="10"></rect><rect fill="#e99ca1" height="10" width="10" x="140" y="10"></rect><rect fill="#e99ca1" height="10" width="10" x="150" y="10"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="10"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="20"></rect><rect fill="#e99ca1" height="10" width="10" x="40" y="20"></rect><rect fill="#e99ca1" height="10" width="10" x="50" y="20"></rect><rect fill="#e99ca1" height="10" width="10" x="60" y="20"></rect><rect fill="#6b4a48" height="10" width="10" x="70" y="20"></rect><rect fill="#6b4a48" height="10" width="10" x="90" y="20"></rect><rect fill="#6b4a48" height="10" width="10" x="100" y="20"></rect><rect fill="#6b4a48" height="10" width="10" x="120" y="20"></rect><rect fill="#e99ca1" height="10" width="10" x="130" y="20"></rect><rect fill="#e99ca1" height="10" width="10" x="140" y="20"></rect><rect fill="#e99ca1" height="10" width="10" x="150" y="20"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="20"></rect><rect fill="#6b4a48" height="10" width="10" x="20" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="30"></rect><rect fill="#e99ca1" height="10" width="10" x="40" y="30"></rect><rect fill="#e99ca1" height="10" width="10" x="50" y="30"></rect><rect fill="#e99ca1" height="10" width="10" x="60" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="70" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="80" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="90" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="100" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="110" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="120" y="30"></rect><rect fill="#e99ca1" height="10" width="10" x="130" y="30"></rect><rect fill="#e99ca1" height="10" width="10" x="140" y="30"></rect><rect fill="#e99ca1" height="10" width="10" x="150" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="30"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="40"></rect><rect fill="#e99ca1" height="10" width="10" x="40" y="40"></rect><rect fill="#e99ca1" height="10" width="10" x="50" y="40"></rect><rect fill="#e99ca1" height="10" width="10" x="60" y="40"></rect><rect fill="#6b4a48" height="10" width="10" x="70" y="40"></rect><rect fill="#e9b97e" height="10" width="10" x="80" y="40"></rect><rect fill="#e9b97e" height="10" width="10" x="90" y="40"></rect><rect fill="#e9b97e" height="10" width="10" x="100" y="40"></rect><rect fill="#e9b97e" height="10" width="10" x="110" y="40"></rect><rect fill="#6b4a48" height="10" width="10" x="120" y="40"></rect><rect fill="#e99ca1" height="10" width="10" x="130" y="40"></rect><rect fill="#e99ca1" height="10" width="10" x="140" y="40"></rect><rect fill="#e99ca1" height="10" width="10" x="150" y="40"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="40"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="40" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="50" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="60" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="70" y="50"></rect><rect fill="#e9b97e" height="10" width="10" x="80" y="50"></rect><rect fill="#e9b97e" height="10" width="10" x="90" y="50"></rect><rect fill="#e9b97e" height="10" width="10" x="100" y="50"></rect><rect fill="#e9b97e" height="10" width="10" x="110" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="120" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="130" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="140" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="150" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="50"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="40" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="50" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="60" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="70" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="80" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="90" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="100" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="110" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="120" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="130" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="140" y="60"></rect><rect fill="#e9b97e" height="10" width="10" x="150" y="60"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="60"></rect><rect fill="#6b4a48" height="10" width="10" x="20" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="30" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="40" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="50" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="60" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="70" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="80" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="90" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="100" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="110" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="120" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="130" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="140" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="150" y="70"></rect><rect fill="#e9b97e" height="10" width="10" x="160" y="70"></rect><rect fill="#6b4a48" height="10" width="10" x="170" y="70"></rect><rect fill="#6b4a48" height="10" width="10" x="20" y="80"></rect><rect fill="#e9b97e" height="10" width="10" x="30" y="80"></rect><rect fill="#e9b97e" height="10" width="10" x="40" y="80"></rect><rect fill="#e9b97e" height="10" width="10" x="50" y="80"></rect><rect fill="#252b40" height="10" width="10" x="60" y="80"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="80"></rect><rect fill="#fff0d2" height="10" width="10" x="80" y="80"></rect><rect fill="#fff0d2" height="10" width="10" x="90" y="80"></rect><rect fill="#fff0d2" height="10" width="10" x="100" y="80"></rect><rect fill="#fff0d2" height="10" width="10" x="110" y="80"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="80"></rect><rect fill="#252b40" height="10" width="10" x="130" y="80"></rect><rect fill="#e9b97e" height="10" width="10" x="140" y="80"></rect><rect fill="#e9b97e" height="10" width="10" x="150" y="80"></rect><rect fill="#e9b97e" height="10" width="10" x="160" y="80"></rect><rect fill="#6b4a48" height="10" width="10" x="170" y="80"></rect><rect fill="#6b4a48" height="10" width="10" x="20" y="90"></rect><rect fill="#e9b97e" height="10" width="10" x="30" y="90"></rect><rect fill="#e9b97e" height="10" width="10" x="40" y="90"></rect><rect fill="#e9b97e" height="10" width="10" x="50" y="90"></rect><rect fill="#252b40" height="10" width="10" x="60" y="90"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="90"></rect><rect fill="#fff0d2" height="10" width="10" x="80" y="90"></rect><rect fill="#fff0d2" height="10" width="10" x="90" y="90"></rect><rect fill="#fff0d2" height="10" width="10" x="100" y="90"></rect><rect fill="#fff0d2" height="10" width="10" x="110" y="90"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="90"></rect><rect fill="#252b40" height="10" width="10" x="130" y="90"></rect><rect fill="#e9b97e" height="10" width="10" x="140" y="90"></rect><rect fill="#e9b97e" height="10" width="10" x="150" y="90"></rect><rect fill="#e9b97e" height="10" width="10" x="160" y="90"></rect><rect fill="#6b4a48" height="10" width="10" x="170" y="90"></rect><rect fill="#6b4a48" height="10" width="10" x="20" y="100"></rect><rect fill="#e9b97e" height="10" width="10" x="30" y="100"></rect><rect fill="#e9b97e" height="10" width="10" x="40" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="50" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="60" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="80" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="90" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="100" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="110" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="130" y="100"></rect><rect fill="#fff0d2" height="10" width="10" x="140" y="100"></rect><rect fill="#e9b97e" height="10" width="10" x="150" y="100"></rect><rect fill="#e9b97e" height="10" width="10" x="160" y="100"></rect><rect fill="#6b4a48" height="10" width="10" x="170" y="100"></rect><rect fill="#6b4a48" height="10" width="10" x="20" y="110"></rect><rect fill="#e9b97e" height="10" width="10" x="30" y="110"></rect><rect fill="#e99ca1" height="10" width="10" x="40" y="110"></rect><rect fill="#e99ca1" height="10" width="10" x="50" y="110"></rect><rect fill="#fff0d2" height="10" width="10" x="60" y="110"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="110"></rect><rect fill="#fff0d2" height="10" width="10" x="80" y="110"></rect><rect fill="#e99ca1" height="10" width="10" x="90" y="110"></rect><rect fill="#e99ca1" height="10" width="10" x="100" y="110"></rect><rect fill="#fff0d2" height="10" width="10" x="110" y="110"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="110"></rect><rect fill="#fff0d2" height="10" width="10" x="130" y="110"></rect><rect fill="#e99ca1" height="10" width="10" x="140" y="110"></rect><rect fill="#e99ca1" height="10" width="10" x="150" y="110"></rect><rect fill="#e9b97e" height="10" width="10" x="160" y="110"></rect><rect fill="#6b4a48" height="10" width="10" x="170" y="110"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="120"></rect><rect fill="#e9b97e" height="10" width="10" x="40" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="50" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="60" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="80" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="90" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="100" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="110" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="130" y="120"></rect><rect fill="#fff0d2" height="10" width="10" x="140" y="120"></rect><rect fill="#e9b97e" height="10" width="10" x="150" y="120"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="120"></rect><rect fill="#6b4a48" height="10" width="10" x="30" y="130"></rect><rect fill="#6b4a48" height="10" width="10" x="40" y="130"></rect><rect fill="#e9b97e" height="10" width="10" x="50" y="130"></rect><rect fill="#fff0d2" height="10" width="10" x="60" y="130"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="130"></rect><rect fill="#6b4a48" height="10" width="10" x="80" y="130"></rect><rect fill="#fff0d2" height="10" width="10" x="90" y="130"></rect><rect fill="#fff0d2" height="10" width="10" x="100" y="130"></rect><rect fill="#6b4a48" height="10" width="10" x="110" y="130"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="130"></rect><rect fill="#fff0d2" height="10" width="10" x="130" y="130"></rect><rect fill="#e9b97e" height="10" width="10" x="140" y="130"></rect><rect fill="#6b4a48" height="10" width="10" x="150" y="130"></rect><rect fill="#6b4a48" height="10" width="10" x="160" y="130"></rect><rect fill="#6b4a48" height="10" width="10" x="40" y="140"></rect><rect fill="#6b4a48" height="10" width="10" x="50" y="140"></rect><rect fill="#e9b97e" height="10" width="10" x="60" y="140"></rect><rect fill="#fff0d2" height="10" width="10" x="70" y="140"></rect><rect fill="#fff0d2" height="10" width="10" x="80" y="140"></rect><rect fill="#fff0d2" height="10" width="10" x="90" y="140"></rect><rect fill="#fff0d2" height="10" width="10" x="100" y="140"></rect><rect fill="#fff0d2" height="10" width="10" x="110" y="140"></rect><rect fill="#fff0d2" height="10" width="10" x="120" y="140"></rect><rect fill="#e9b97e" height="10" width="10" x="130" y="140"></rect><rect fill="#6b4a48" height="10" width="10" x="140" y="140"></rect><rect fill="#6b4a48" height="10" width="10" x="150" y="140"></rect><rect fill="#6b4a48" height="10" width="10" x="60" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="70" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="80" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="90" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="100" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="110" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="120" y="150"></rect><rect fill="#6b4a48" height="10" width="10" x="130" y="150"></rect></svg></div><div class="hamster-speech"><span class="pixel-kicker">MENSAJE ENTREGADO ♥</span><p>¡Sarai! Tu pequeño hámster tiene algo que decirte...</p><p class="hamster-message">Mi mensaje secreto es que si pudiera elegir otra vez, volvería a elegirte a ti. 💙</p><small>— Con amor, Pedro 🐹</small></div></div>
+
+<p class="footer-note">Fin de la misión... por ahora ✨</p>
+</section>
+</div>
+<script>
+    function nextScreen(screenNumber) {
+      startMusicOnce();
+      const screens = document.querySelectorAll('.card');
+      const dots = document.querySelectorAll('.dot');
+
+      screens.forEach(screen => screen.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      document.getElementById(`screen-${screenNumber}`).classList.add('active');
+      if (dots[screenNumber - 1]) {
+        dots[screenNumber - 1].classList.add('active');
+      }
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    function checkAnswer(button, isCorrect) {
+      const result = document.getElementById('answerResult');
+      const nextBtn = document.getElementById('btnTo3');
+
+      if (isCorrect) {
+        result.textContent = '¡Correcto! Sigue avanzando, amor 💙';
+        result.style.color = '#73d9a7';
+        result.classList.remove('hidden');
+        nextBtn.classList.remove('hidden');
+      } else {
+        result.textContent = 'Ups, casi. Inténtalo otra vez 👀';
+        result.style.color = '#ff8ca3';
+        result.classList.remove('hidden');
+      }
+    }
+
+    function showFinalMessage() {
+      document.getElementById('hamsterSurprise').classList.remove('hidden'); launchHearts();
+    }
+  
+
+// Desbloqueos restaurados dentro de los capítulos
+function setupExtraQuiz(attr,reveal,feedback){document.querySelectorAll('['+attr+']').forEach(button=>button.addEventListener('click',()=>{const correct=button.getAttribute(attr)==='correct';const msg=document.getElementById(feedback);if(correct){document.getElementById(reveal).classList.remove('hidden');msg.textContent='¡Exactamente, amor! Recuerdo desbloqueado ♥';msg.style.color='#73d9a7';document.querySelectorAll('['+attr+']').forEach(b=>b.disabled=true);}else{msg.textContent='Casi casi, linda. Intenta otra vez ♡';msg.style.color='#ff9cab';}}));}
+setupExtraQuiz('data-origin','reveal-origin','originFeedback');
+setupExtraQuiz('data-photo','reveal-photos','photoFeedback');
+// Reproductor de música en bucle
+const audio=document.getElementById('soundtrack'),musicBtn=document.getElementById('musicBtn');audio.volume=.35;let attemptedMusic=false;
+function syncMusic(){musicBtn.textContent=audio.paused?'♫ Activar música':'♫ Pausar música';}
+async function startMusicOnce(){if(attemptedMusic||!audio.paused)return;attemptedMusic=true;try{await audio.play();syncMusic()}catch(e){musicBtn.textContent='♫ Toca para activar música'}}
+musicBtn.addEventListener('click',async()=>{try{if(audio.paused)await audio.play();else audio.pause();syncMusic();}catch(e){musicBtn.textContent='♫ Revisa el archivo MP3'}});
+audio.addEventListener('error',()=>musicBtn.textContent='♫ Falta nuestra-cancion.mp3');
+// Corazones al descubrir el mensaje del hámster
+function launchHearts(){const layer=document.getElementById('confetti');for(let i=0;i<42;i++){const petal=document.createElement('span');petal.className='petal';petal.textContent=['♥','✦','♡'][i%3];petal.style.left=Math.random()*100+'%';petal.style.fontSize=(12+Math.random()*19)+'px';petal.style.animationDuration=(3+Math.random()*4)+'s';petal.style.animationDelay=Math.random()*1.5+'s';layer.appendChild(petal);setTimeout(()=>petal.remove(),9000);}}
+
+const canvas=document.getElementById('sky'),ctx=canvas.getContext('2d');let w,h,stars=[],time=0;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function resize(){const d=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;canvas.width=w*d;canvas.height=h*d;ctx.setTransform(d,0,0,d,0,0);stars=Array.from({length:Math.min(200,Math.floor(w*h/4200))},()=>({x:Math.random()*w,y:Math.random()*h,r:.5+Math.random()*2,p:Math.random()*6.28}));}
+function swirl(cx,cy,r,speed,t){ctx.save();ctx.translate(cx,cy);ctx.rotate(t*speed);for(let layer=0;layer<4;layer++){ctx.beginPath();for(let i=0;i<=190;i++){const a=i/190*Math.PI*3.2;const rr=r*(.09+.81*i/190)+layer*5;const x=Math.cos(a)*rr,y=Math.sin(a)*rr*.54;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.strokeStyle=['rgba(116,184,232,.20)','rgba(218,219,173,.18)','rgba(46,130,197,.32)','rgba(154,197,224,.17)'][layer];ctx.lineWidth=12-layer*2.5;ctx.lineCap='round';ctx.stroke();}ctx.restore()}
+function draw(){time+=.008;let bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#061126');bg.addColorStop(.48,'#12385d');bg.addColorStop(1,'#071128');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+// Trazos amplios como óleo nocturno
+for(let j=0;j<19;j++){ctx.beginPath();let yy=h*(j/19)+Math.sin(j*1.7+time*.23)*18;ctx.moveTo(-50,yy);ctx.bezierCurveTo(w*.28,yy-44,w*.59,yy+48,w+50,yy-17);ctx.strokeStyle=j%3===0?'rgba(38,110,169,.10)':'rgba(140,178,209,.055)';ctx.lineWidth=11+j%5*3;ctx.stroke()}
+swirl(w*.22,h*.24,Math.min(w,h)*.22,.025,time);swirl(w*.81,h*.46,Math.min(w,h)*.3,-.018,time);swirl(w*.47,h*.8,Math.min(w,h)*.24,.013,time);
+// Luna con resplandor difuso
+let mx=w*.78,my=h*.18,mr=Math.max(22,Math.min(43,w*.065));let halo=ctx.createRadialGradient(mx,my,6,mx,my,mr*4);halo.addColorStop(0,'rgba(255,230,162,.36)');halo.addColorStop(.4,'rgba(240,214,154,.1)');halo.addColorStop(1,'rgba(240,214,154,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(mx,my,mr*4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#f6deb2';ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fill();ctx.fillStyle='#12385d';ctx.beginPath();ctx.arc(mx+mr*.37,my-mr*.15,mr*.83,0,Math.PI*2);ctx.fill();
+for(const s of stars){let glow=.67+.33*Math.sin(s.p+time*1.4);ctx.globalAlpha=glow;ctx.fillStyle=s.r>1.7?'#ffe4a9':'#b8d9f9';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();if(s.r>2){ctx.strokeStyle='rgba(255,232,184,.42)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(s.x-5,s.y);ctx.lineTo(s.x+5,s.y);ctx.moveTo(s.x,s.y-5);ctx.lineTo(s.x,s.y+5);ctx.stroke()}}ctx.globalAlpha=1;if(!reduce)requestAnimationFrame(draw)}
+addEventListener('resize',()=>{resize();if(reduce)draw()});resize();draw();
+</script>
+</body>
+</html>
